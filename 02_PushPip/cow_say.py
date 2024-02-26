@@ -25,6 +25,9 @@ def handle_preset(args) -> str:
 def main(args):
     message = ' '.join(args.message)
     preset = handle_preset(args)
+    if args.list:
+        print(cowsay.list_cows())
+        return
     
     cow_said = cowsay.cowsay(
         message=message,
@@ -47,6 +50,7 @@ if __name__ == '__main__':
     parser.add_argument('-f', dest='cowfile', type=str, default=None)
     parser.add_argument('-n', dest='wrap_text', action='store_false')
     parser.add_argument('-W', dest='width', type=int, default=40)
+    parser.add_argument('-l', dest='list', action = 'store_true')
     
     modes = 'bgpstwy'
     for mode in modes:
