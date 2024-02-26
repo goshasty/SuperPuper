@@ -8,7 +8,8 @@ def main(args):
         eyes=args.eyes,
         tongue=args.tongue,
         cowfile=args.cowfile,
-        wrap_text=args.wrap_text
+        wrap_text=args.wrap_text,
+        width=args.width
     )
     print(cow_said)
     
@@ -23,6 +24,7 @@ if __name__ == '__main__':
         '-n', dest='wrap_text', type=bool, default=True, 
         help="To use -n arg: python3 cow_say.py -n '' <other args>/<message>"
     )
+    parser.add_argument('-W', dest='width', type=int, default=40)
    
     args = parser.parse_args()
     
