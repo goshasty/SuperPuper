@@ -14,8 +14,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
     parser.add_argument('message', nargs='*', default='')
-    parser.add_argument('-e', '--eyes', type = str, default = 'oo')
-    parser.add_argument('-T', '--tongue', type = str, default = '__')
+    parser.add_argument('-e', dest='eyes', type=str, default='oo')
+    parser.add_argument('-T', dest='tongue', type=str, default='__')
    
     args = parser.parse_args()
     
