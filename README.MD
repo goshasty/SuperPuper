@@ -5,7 +5,9 @@ to run script:
 - pip install python-cowsay==1.1.1
 - python3 02_PushPip/cow_say.py ... 
 
-### HW2: MergeRequirements
+### HW3: MergeRequirements
+branch: hw3/03-MergeRequirements
+
 - python3 -m venv ./venv
 - source ./venv/bin/activate
 - cd 03_MergeRequirements ... 
