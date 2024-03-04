@@ -5,8 +5,11 @@ from dict_utils import load_dict
 
 
 def ask(prompt: str, valid: List[str] = None) -> str:
-    quess = input()
-    return quess
+    guess = input()
+    if valid:
+        while guess not in valid:
+            guess = input()
+    return guess
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
     print(format_string.format(bulls, cows))
