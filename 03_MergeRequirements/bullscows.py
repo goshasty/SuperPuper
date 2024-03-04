@@ -2,18 +2,24 @@ from typing import Tuple, List
 import random
 import argparse
 from dict_utils import load_dict, dictionary_only_length
-from cowsay import cowsay, list_cows
+from cowsay import cowsay, list_cows, read_dot_cow
+from io import StringIO
 
+def my_cow_say(message: str) -> str:
+    with open("my.cow") as f:
+        cowfile = read_dot_cow(f)
+    return cowsay(message, cowfile=cowfile) + '\n'
+    
 def choose_cow() -> str:
     return random.choice(list_cows())
 
 def ask(prompt: str, valid: List[str] = None) -> str:
-    print(cowsay(prompt, choose_cow()))
-    guess = input()
+    #print(cowsay(prompt, my_cow()))
+    guess = input(my_cow_say(prompt))
     if valid:
         while guess not in valid:
-            print(cowsay('Слово не из словаря! '+ prompt, choose_cow()))
-            guess = input()
+            #print(cowsay('Слово не из словаря! '+ prompt, my_cow()))
+            guess = input(my_cow_say(prompt))
     return guess
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
