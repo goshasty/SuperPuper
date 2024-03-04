@@ -1,6 +1,7 @@
 from typing import Tuple, List
 import random
-
+import argparse
+from dict_utils import load_dict
 
 
 def ask(prompt: str, valid: List[str] = None) -> str:
@@ -14,6 +15,8 @@ class BullCows:
     def __init__(self, ask: callable, inform: callable, words: List[str]):
         self.words = words
         self.secret = random.choice(words)
+        #print(self.secret)
+        
         self.ask = ask
         self.inform = inform
         
@@ -33,7 +36,7 @@ class BullCows:
         return bulls == len(self.secret)
 
     def end_game(self) -> None:
-        print('Поздравляю! Попыток потрачено: {}'.format(self.num_tries))
+        print('Поздравляю! Попыток потрачено попыток: {}'.format(self.num_tries))
 
     def play(self) -> None:
         while True:
@@ -50,6 +53,19 @@ def gameplay(ask: callable, inform: callable, words: List[str]):
     game = BullCows(ask, inform, words)
     game.play()
 
+
+    
+
+def main(args):
+    dictionary = args.dictionary[0]
+    words = load_dict(dictionary)
+    print('Возможных слов: {}'.format(len(words)))
+    gameplay(ask, inform, words)
+
 if __name__ == '__main__':
-    gameplay(ask, inform, ['полип'])
+    parser = argparse.ArgumentParser()
+    
+    parser.add_argument('dictionary', nargs=1)
+    args = parser.parse_args()
+    main(args)
 
