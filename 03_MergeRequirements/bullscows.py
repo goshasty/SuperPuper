@@ -6,7 +6,6 @@ from cowsay import cowsay, list_cows
 
 
 def ask(prompt: str, valid: List[str] = None) -> str:
-    #print(cowsay(prompt, MY_COW))
     print(cowsay(prompt))
     guess = input()
     if valid:
@@ -16,7 +15,7 @@ def ask(prompt: str, valid: List[str] = None) -> str:
     return guess
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(format_string.format(bulls, cows))
+    print(cowsay(format_string.format(bulls, cows)))
 
 class BullCows:
     def __init__(self, ask: callable, inform: callable, words: List[str]):
