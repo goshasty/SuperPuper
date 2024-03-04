@@ -2,12 +2,16 @@ from typing import Tuple, List
 import random
 import argparse
 from dict_utils import load_dict, dictionary_only_length
+from cowsay import cowsay, list_cows
 
 
 def ask(prompt: str, valid: List[str] = None) -> str:
+    #print(cowsay(prompt, MY_COW))
+    print(cowsay(prompt))
     guess = input()
     if valid:
         while guess not in valid:
+            print(cowsay('Слово не из словаря! '+ prompt))
             guess = input()
     return guess
 
