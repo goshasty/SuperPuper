@@ -1,7 +1,7 @@
 from typing import Tuple, List
 import random
 import argparse
-from dict_utils import load_dict
+from dict_utils import load_dict, dictionary_only_length
 
 
 def ask(prompt: str, valid: List[str] = None) -> str:
@@ -18,12 +18,10 @@ class BullCows:
     def __init__(self, ask: callable, inform: callable, words: List[str]):
         self.words = words
         self.secret = random.choice(words)
-        #print(self.secret)
-        
         self.ask = ask
         self.inform = inform
-        
         self.num_tries = 0
+        #print(self.secret)
     
     def bullscows(self, guess: str, secret: str) -> Tuple[int, int]:
         bulls = 0
@@ -57,11 +55,15 @@ def gameplay(ask: callable, inform: callable, words: List[str]):
     game.play()
 
 
-    
-
 def main(args):
     dictionary = args.dictionary[0]
+    length = args.length
     words = load_dict(dictionary)
+    if not length is None:
+        words = dictionary_only_length(words, length)
+    if not words:
+        raise ValueError('no words with length: {}'.format(length))
+    
     print('Возможных слов: {}'.format(len(words)))
     gameplay(ask, inform, words)
 
@@ -69,6 +71,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
     parser.add_argument('dictionary', nargs=1)
+    parser.add_argument('length', nargs='?', type=int)
     args = parser.parse_args()
     main(args)
 

@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 
-def download_words(url):
+def download_words(url: str) -> Path:
     DICT_PATH = "dictionaries/"
     DICT_FILENAME = "words.txt"
     
@@ -34,6 +34,9 @@ def load_dict(dictionary: str) -> List[str]:
             return words
     
     raise ValueError('dictionary is nor valid url neither path')
+
+def dictionary_only_length(words: List[str], length: int) -> List[str]:
+    return [word for word in words if len(word) == length]
     
     
     
