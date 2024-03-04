@@ -12,7 +12,8 @@ def bullscows(guess: str, secret: str) -> Tuple[int, int]:
     return (bulls, cows-bulls)
 
 def ask(prompt: str, valid: List[str] = None) -> str:
-    return 'ропот'
+    quess = input()
+    return quess
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
     print(format_string.format(bulls, cows))
