@@ -4,18 +4,20 @@ import argparse
 from dict_utils import load_dict, dictionary_only_length
 from cowsay import cowsay, list_cows
 
+def choose_cow() -> str:
+    return random.choice(list_cows())
 
 def ask(prompt: str, valid: List[str] = None) -> str:
-    print(cowsay(prompt))
+    print(cowsay(prompt, choose_cow()))
     guess = input()
     if valid:
         while guess not in valid:
-            print(cowsay('Слово не из словаря! '+ prompt))
+            print(cowsay('Слово не из словаря! '+ prompt, choose_cow()))
             guess = input()
     return guess
 
 def inform(format_string: str, bulls: int, cows: int) -> None:
-    print(cowsay(format_string.format(bulls, cows)))
+    print(cowsay(format_string.format(bulls, cows), choose_cow()))
 
 class BullCows:
     def __init__(self, ask: callable, inform: callable, words: List[str]):
