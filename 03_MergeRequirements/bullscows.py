@@ -33,7 +33,7 @@ class BullCows:
         return bulls == len(self.secret)
 
     def end_game(self) -> None:
-        print('Поздравляю! {}'.format(self.num_tries))
+        print('Поздравляю! Попыток потрачено: {}'.format(self.num_tries))
 
     def play(self) -> None:
         while True:
