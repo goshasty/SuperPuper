@@ -1,6 +1,6 @@
 import shlex
 import cmd
-from cowsay import list_cows, cowsay, Option, make_bubble, THOUGHT_OPTIONS
+from cowsay import list_cows, cowsay, make_bubble, THOUGHT_OPTIONS, cowthink
 #from itertools import batched
 
 def batched(args, n):
@@ -46,7 +46,7 @@ class Cow(cmd.Cmd):
     def __params(self, args, function: str):
         params_dict = self.d_params[function]   
         params = {}
-        print(batched(args, 2))
+        #print(batched(args, 2))
         for arg, val in batched(args, 2):
             params[params_dict[arg]] = val
         return params
@@ -74,8 +74,17 @@ class Cow(cmd.Cmd):
         params=self.__params(args[1:], 'cowsay')
         print(cowsay(args[0], **params))
         
-    
     def complete_cowsay(self, text, line, begidx, endidx) -> list[str] | None:
+        words = (line[:endidx] + " ").split()
+        return self.d_default_cowsay.get(words[-1], None)
+    
+    def do_cowthink(self, args):
+        """Cow say your message"""
+        args = shlex.split(args)
+        params=self.__params(args[1:], 'cowsay')
+        print(cowthink(args[0], **params))
+
+    def complete_cowthink(self, text, line, begidx, endidx) -> list[str] | None:
         words = (line[:endidx] + " ").split()
         return self.d_default_cowsay.get(words[-1], None)
         
