@@ -1,6 +1,6 @@
 import shlex
 import cmd
-from cowsay import list_cows, cowsay, Option
+from cowsay import list_cows, cowsay, Option, make_bubble, THOUGHT_OPTIONS
 #from itertools import batched
 
 def batched(args, n):
@@ -9,23 +9,37 @@ def batched(args, n):
     
 class Cow(cmd.Cmd):
     prompt = "<<^_^>> "
+    
+    
+    
     d_params_cowsay = {
         '-e': 'eyes',
         '-t': 'tongue',
         '-f': 'cow',
     }
     
+    d_params_bubble = {
+        '-w': 'width',
+        '-b': 'brackets'
+    }
+    
     d_default_cowsay = {
         '-e': ['oo', '$$'],
         '-t': ['=', '[['],
         '-f': list_cows()[:4],
-        
     }
-    def __cowsay_params(self, args):
+    
+    d_params = {
+        'cowsay': d_params_cowsay,
+        'make_bubble': d_params_bubble
+    }
+    
+    def __params(self, args, function: str):
+        params_dict = self.d_params[function]   
         params = {}
         print(batched(args, 2))
         for arg, val in batched(args, 2):
-            params[self.d_params_cowsay[arg]] = val
+            params[params_dict[arg]] = val
         return params
     
 
@@ -33,17 +47,24 @@ class Cow(cmd.Cmd):
         """Get all available cows"""
         print(*list_cows())
 
+    def do_make_bubble(self, args):
+        """Make bubbles"""
+        args = shlex.split(args)
+        
+        params=self.__params(args[1:], 'make_bubble')
+        if 'brackets' in params:
+            params['brackets'] = THOUGHT_OPTIONS[params['brackets']]
+        print(make_bubble(args[0], **params))
+
     def do_cowsay(self, args):
         """Cow say your message"""
         args = shlex.split(args)
-        params=self.__cowsay_params(args[1:])
+        params=self.__params(args[1:], 'cowsay')
         print(cowsay(args[0], **params))
     
     def complete_cowsay(self, text, line, begidx, endidx) -> list[str] | None:
         words = (line[:endidx] + " ").split()
         return self.d_default_cowsay.get(words[-1], None)
-        return words
-        return [str(text), str(words), str(line), str(begidx), str(endidx)]
         
     def do_EOF(self, args=None):
         return 1
