@@ -28,7 +28,7 @@ class Cow(cmd.Cmd):
     
     
     d_default_cowsay = {
-         '-': ['-e', '-t', '-f'],
+        '-': ['-e', '-t', '-f'],
         '-e': ['oo', '$$'],
         '-t': ['=', '[['],
         '-f': list_cows()[:4]
@@ -55,11 +55,25 @@ class Cow(cmd.Cmd):
     
 
     def do_list_cows(self, args=None):
-        """Get all available cows"""
+        """
+        Get all available cows (animals)
+        
+        usage:
+        list_cows
+        
+        """
         print(*list_cows())
 
     def do_make_bubble(self, args):
-        """Make bubbles"""
+        """
+        Make bubble of word
+        
+        usage:
+        make_bubble <message>
+            [-w]: width of string to wrap a line
+            [-b]: 'cowsay' or 'cowthink' - types of bubble
+        
+        """
         args = shlex.split(args)
         params=self.__params(args[1:], 'make_bubble')
         if 'brackets' in params:
@@ -71,7 +85,16 @@ class Cow(cmd.Cmd):
         return self.d_default_make_bubble.get(words[-1], None)
 
     def do_cowsay(self, args):
-        """Cow say your message"""
+        """
+        Cow say your message
+        
+        usage:
+        cowsay <message> 
+            [-e]: cow's eyes
+            [-t]: cow's tongue
+            [-f]: cow or not cow? (choose another animal)
+        
+        """
         args = shlex.split(args)
         params=self.__params(args[1:], 'cowsay')
         print(cowsay(args[0], **params))
@@ -81,7 +104,16 @@ class Cow(cmd.Cmd):
         return self.d_default_cowsay.get(words[-1], None)
     
     def do_cowthink(self, args):
-        """Cow say your message"""
+        """
+        Cow thinnk your thought
+        
+        usage:
+        cowthink <message> 
+            [-e]: cow's eyes
+            [-t]: cow's tongue
+            [-f]: cow or not cow? (choose another animal)
+        
+        """
         args = shlex.split(args)
         params=self.__params(args[1:], 'cowsay')
         print(cowthink(args[0], **params))
