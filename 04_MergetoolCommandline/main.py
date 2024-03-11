@@ -28,12 +28,14 @@ class Cow(cmd.Cmd):
     
     
     d_default_cowsay = {
+         '-': ['-e', '-t', '-f'],
         '-e': ['oo', '$$'],
         '-t': ['=', '[['],
         '-f': list_cows()[:4]
     }
     
     d_default_make_bubble = {
+        '-': ['-w', '-b'],
         '-w': ['40', '50', '80'],
         '-b': ['cowsay', 'cowthink']
     }
